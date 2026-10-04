@@ -57,7 +57,12 @@
 void (*Bumper_Task)(uint8_t bumper_switch_state);
 
 /**
- * @brief
+ * @brief Initializes the Bumper Switches
+ *
+ * This function configures pins P4.7-5, P4.3, P4.2, and P4.0 as input GPIO pins, with pull-up resistors and
+ * sets the outputs to high. It also sets the pins to use falling-edge interrupt triggers, clears any existing
+ * interrupt flags and enables their interrupt functionality. Lastly, it sets the priority of the interrupts
+ * to 0 using the Interrupt Priority (IP) register and enables the interrupt request IRQ 38.
  *
  * @param task A pointer to the user-defined function that will be called on a falling edge event.
  *
