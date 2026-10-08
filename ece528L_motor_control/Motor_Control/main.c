@@ -80,9 +80,15 @@ void SysTick_Handler(void)
  */
 void Bumper_Switches_Handler(uint8_t bumper_switch_state)
 {
-    printf("Collision Detected! Bumper Switch State: 0x%02X\n", bumper_switch_state);
-    P8->OUT |= 0x80; // set output port 8 pin 7 HIGH
-    collision_detected = 1;
+
+//    printf("Collision Detected! Bumper Switch State: 0x%02X\n", bumper_switch_state);
+//    P8->OUT |= 0x80;
+
+    if (collision_detected == 0)
+    {
+        printf("Collision Detected! Bumper Switch State: 0x%02X\n", bumper_switch_state);
+        collision_detected = 1;
+    }
 }
 
 /**
@@ -142,7 +148,10 @@ void Drive_Pattern_1()
 }
 
 /**
- * @brief
+ * @brief This function handles how it will react to a collision.
+ *
+ * This function is called whenever the robot detects a collision. It will reverse, then move backwards,
+ * then turn right and the collision flag will be set back to 0.
  *
  * @param None
  *
