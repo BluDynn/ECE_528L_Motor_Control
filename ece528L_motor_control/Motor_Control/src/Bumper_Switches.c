@@ -38,34 +38,43 @@ void Bumper_Switches_Init(void(*task)(uint8_t))
     // Configure the following pins as GPIO pins: P4.7, P4.6, P4.5, P4.3, P4.2, and P4.0
     // by clearing the corresponding bits in the SEL0 and SEL1 registers
 
-
+       P4->SEL0 &= ~0xED;
+       P4->SEL1 &= ~0xED;
 
     // Set the direction of the following pins as input: P4.7, P4.6, P4.5, P4.3, P4.2, and P4.0
     // by clearing the corresponding bits in the DIR register
 
+       P4->DIR &= ~0xED; //set that to input
 
     // Enable pull-up resistors on the following pins: P4.7, P4.6, P4.5, P4.3, P4.2, and P4.0
     // by setting the corresponding bits in the REN register
+
+       P4->REN |= 0xED;
 
 
     // Ensure that the pins are pulled up: P4.7, P4.6, P4.5, P4.3, P4.2, and P4.0
     // by setting the corresponding bits in the OUT register
 
+       P4->OUT |= 0xED; //setting it to high ensures that it will hold high until pulled down. so its ann acitve low, to trigger the button you actively turn it low
 
     // Interrupt Edge Select: High-to-Low Transition
     // Configure the pins to use falling edge event triggers: P4.7, P4.6, P4.5, P4.3, P4.2, and P4.0
     // by setting the corresponding bits in the IES register
 
+       P4->IES &= ~0xED; // falling edge Event trigger is =0 || Low means to make it trigger on the Falling edge HIgh means to make it on the rising edge
 
     // Clear any existing interrupt flags on the following pins: P4.7, P4.6, P4.5, P4.3, P4.2, and P4.0
     // by clearing the corresponding bits in the IFG register
 
+       P4->IFG &= ~0xED; // Clears the Flag reg to let it know nothing is flagged
 
     // Enable interrupts on the following pins: P4.7 - P4.5, P4.3, P4.2, and P4.0
     // by setting the corresponding bits in the IE register
 
+       P4->IE |= 0xED; // setting to high enables the interrupts
 
-    // Set the priority level of the interrupts (IRQ 38) to 0 (section 2.4.3.20)
+    // Set the priority level of the interrupts (IRQ 38) to 0 (section 2.4.3.20) //erm did it do it for me?
+
     NVIC->IP[9] = (NVIC->IP[9] & 0xFF0FFFFF);
 
     // Enable Interrupt 38 in NVIC (section 2.4.3.2)
