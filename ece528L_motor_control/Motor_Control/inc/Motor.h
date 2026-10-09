@@ -19,7 +19,10 @@
 #include "../inc/Timer_A0_PWM.h"
 
 /**
- * @brief
+ * @brief Initializes GPIO pins for motor functions
+ *
+ * This function initializes pins P5.5-4 and P3.7-6 to control the motor. Pins P5.5-4 will be used for the directions
+ * of the left and right motor. Pins P3.7-6 will be used to turn the motors on or off.
  *
  * @param None
  *
